@@ -9,7 +9,7 @@ namespace IconSDK
         public static class ApiUrl
         {
             public const string MainNet = "https://wallet.icon.foundation/api/v3";
-            public const string TestNet = "https://testwallet.icon.foundation/api/v3";
+            public const string TestNet =  "https://lisbon.net.solidwallet.io/api/v3";
 
             public static int GetNetworkID(string apiUrl)
             {

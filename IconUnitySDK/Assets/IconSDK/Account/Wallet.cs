@@ -1,9 +1,10 @@
 ﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Numerics;
-using System.Threading.Tasks;
+using Cysharp.Threading.Tasks;
 
 namespace IconSDK.Account
 {
@@ -51,13 +52,13 @@ namespace IconSDK.Account
             return KeyStore.Create(PrivateKey, Address).Store(password, keyStoreFilePath);
         }
 
-        public async Task<BigInteger> GetBalance()
+        public async UniTask<BigInteger> GetBalance()
         {
             var getBalance = new GetBalance(ApiUrl);
             return await getBalance.Invoke(Address);
         }
 
-        public async Task<Hash32> Transfer(Address to, BigInteger amount, BigInteger stepLimit, int? networkID = null)
+        public async UniTask<Hash32> Transfer(Address to, BigInteger amount, BigInteger stepLimit, int? networkID = null)
         {
             var builder = new TransferTransactionBuilder();
             builder.PrivateKey = PrivateKey;

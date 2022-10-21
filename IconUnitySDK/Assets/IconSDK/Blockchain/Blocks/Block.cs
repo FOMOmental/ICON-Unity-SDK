@@ -15,7 +15,7 @@ namespace IconSDK.Blockchain
         public readonly BigInteger? Height;
         public readonly BigInteger? Timestamp;
         public readonly ExternalAddress PeerID;
-        public readonly Signature Signature;
+     
         public readonly ImmutableArray<Transaction> Transactions;
 
         public Block(
@@ -26,7 +26,7 @@ namespace IconSDK.Blockchain
             BigInteger? height,
             BigInteger? timestamp,
             ExternalAddress peerID,
-            Signature signature,
+
             ImmutableArray<Transaction> transactions
         )
         {
@@ -37,7 +37,7 @@ namespace IconSDK.Blockchain
             Height= height;
             Timestamp= timestamp;
             PeerID = peerID;
-            Signature = signature;
+            
             Transactions = transactions;
         }
     }

@@ -1,9 +1,10 @@
 using System;
 using System.Collections.Generic;
-using System.Threading.Tasks;
 using System.Globalization;
+using UnityEngine;
 using System.Numerics;
 using Newtonsoft.Json;
+using Cysharp.Threading.Tasks;
 
 namespace IconSDK.RPCs
 {
@@ -32,15 +33,19 @@ namespace IconSDK.RPCs
 
         }
 
-        public async Task<Block> Invoke()
+        public async UniTask<Block> Invoke()
         {
+            Debug.Log("i am called");
             var request = new GetLastBlockRequestMessage();
+            Debug.Log("bich");
             var response = await Invoke(request);
+            Debug.Log("i am called");
             var bs = new BlockSerializer();
+            Debug.Log("over");
             return  bs.Deserialize(response.Result);
         }
 
-        public static new Func<Task<Block>> Create(string url)
+        public static new Func<UniTask<Block>> Create(string url)
         {
             return new GetLastBlock(url).Invoke;
         }

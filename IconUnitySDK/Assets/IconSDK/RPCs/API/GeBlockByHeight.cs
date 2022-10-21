@@ -1,9 +1,10 @@
 using System;
 using System.Collections.Generic;
-using System.Threading.Tasks;
 using System.Globalization;
 using System.Numerics;
 using Newtonsoft.Json;
+using Cysharp.Threading.Tasks;
+
 
 namespace IconSDK.RPCs
 {
@@ -42,7 +43,7 @@ namespace IconSDK.RPCs
 
         }
 
-        public async Task<Block> Invoke(BigInteger height)
+        public async UniTask<Block> Invoke(BigInteger height)
         {
             var request = new GetBlockByHeightRequestMessage(height);
             var response = await Invoke(request);
@@ -50,7 +51,7 @@ namespace IconSDK.RPCs
             return  bs.Deserialize(response.Result);
         }
 
-        public static new Func<BigInteger, Task<Block>> Create(string url)
+        public static new Func<BigInteger, UniTask<Block>> Create(string url)
         {
             return new GetBlockByHeight(url).Invoke;
         }

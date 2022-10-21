@@ -1,0 +1,16 @@
+{
+  "version": 2,
+  "dgSpecHash": "WEBETCvFPbkxbyHIoKTticHSLeyCgKDIDPFUk1ZMXKsR09JK0UvLG2Yt+mD5oo580wZzL1HNcoSAaXP5lUpRCQ==",
+  "success": true,
+  "projectFilePath": "C:\\Users\\harsh\\OneDrive\\Documents\\IconSDK.net-main\\IconSDK.net-main\\IconSDK\\IconSDK.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\harsh\\.nuget\\packages\\microsoft.netcore.platforms\\1.1.0\\microsoft.netcore.platforms.1.1.0.nupkg.sha512",
+    "C:\\Users\\harsh\\.nuget\\packages\\nethereum.hex\\2.5.1\\nethereum.hex.2.5.1.nupkg.sha512",
+    "C:\\Users\\harsh\\.nuget\\packages\\nethereum.keystore\\2.5.1\\nethereum.keystore.2.5.1.nupkg.sha512",
+    "C:\\Users\\harsh\\.nuget\\packages\\netstandard.library\\2.0.3\\netstandard.library.2.0.3.nupkg.sha512",
+    "C:\\Users\\harsh\\.nuget\\packages\\newtonsoft.json\\11.0.2\\newtonsoft.json.11.0.2.nupkg.sha512",
+    "C:\\Users\\harsh\\.nuget\\packages\\portable.bouncycastle\\1.8.2\\portable.bouncycastle.1.8.2.nupkg.sha512",
+    "C:\\Users\\harsh\\.nuget\\packages\\system.collections.immutable\\1.5.0\\system.collections.immutable.1.5.0.nupkg.sha512"
+  ],
+  "logs": []
+}
