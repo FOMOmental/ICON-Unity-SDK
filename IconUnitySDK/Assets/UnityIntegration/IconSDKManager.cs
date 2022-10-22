@@ -32,10 +32,10 @@ public class IconSDKManager : MonoBehaviour
     public async UniTask<Hash32> GetLastBlockAsync()
     {
         var get = new GetLastBlock(Consts.ApiUrl.MainNet);
-        Debug.Log("hi hi hi ");
+        
 
         var result = await get.Invoke();
-        Debug.Log("hi hi hi hi");
+       
         return result.Hash;
     }
 

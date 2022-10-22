@@ -61,7 +61,7 @@ namespace IconSDK.RPCs
                     );
                 string myContent = await abc.ReadAsStringAsync();
 
-                Debug.Log("in the middle");
+                
 
             /**  using (var result = await httpClient.PostAsync(
                   URL,
@@ -70,7 +70,7 @@ namespace IconSDK.RPCs
                       Encoding.UTF8,
                       "application/json"
                   )**/
-            Debug.Log(message);
+     
             byte[] bytes = Encoding.UTF8.GetBytes(message);
           
            
@@ -84,7 +84,7 @@ namespace IconSDK.RPCs
             request.SendWebRequest();
             while (!request.isDone)
                 {
-                Debug.Log("request not done");
+             
                     await UniTask.Yield();
                 }
                 if (request.result == UnityWebRequest.Result.ConnectionError)
@@ -93,7 +93,7 @@ namespace IconSDK.RPCs
                 }
                 else
                 {
-                Debug.Log(request.downloadHandler.text);
+              
                     var responseMessage = JsonConvert.DeserializeObject<TRPCResponseMessage>(request.downloadHandler.text, _settings);
                     return responseMessage;
                 }
@@ -107,7 +107,7 @@ namespace IconSDK.RPCs
                       //return responseMessage;
                   }
             ));*/
-                    Debug.Log("in the middle");
+                   
 
             
         }
@@ -120,7 +120,7 @@ namespace IconSDK.RPCs
             yield return request.SendWebRequest();
 
             if(request.result == UnityWebRequest.Result.ConnectionError){
-                Debug.Log("Error occured");
+               
                 result(request.error);
             }
             else{
