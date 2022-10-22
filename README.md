@@ -5,7 +5,7 @@
 
 # IconUnitySDK
 
-This SDK is built around C# ICON sdk that can be found here: https://github.com/zsaladin/IconSDK.Net
+This SDK is built around C# ICON sdk that can be found here: https://github.com/EclecticaNetwork/IconSDK.net
 
 To import it to your project double click IconUnitySDK.unitypackage in Artifacts folder. 
 
