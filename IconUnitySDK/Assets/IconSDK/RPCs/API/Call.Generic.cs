@@ -1,9 +1,9 @@
 using System;
-using System.Threading.Tasks;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Numerics;
 using Newtonsoft.Json;
+using Cysharp.Threading.Tasks;
 
 namespace IconSDK.RPCs
 {
@@ -55,14 +55,14 @@ namespace IconSDK.RPCs
 
         }
 
-        public async Task<TResponseParam> Invoke(Address from, Address to, string method, TRequestParam param)
+        public async UniTask<TResponseParam> Invoke(Address from, Address to, string method, TRequestParam param)
         {
             var request = new CallRequestMessage<TRequestParam>(from, to, method, param);
             var response = await Invoke(request);
             return response.Result;
         }
 
-        public static new Func<Address, Address, string, TRequestParam, Task<TResponseParam>> Create(string url)
+        public static new Func<Address, Address, string, TRequestParam, UniTask<TResponseParam>> Create(string url)
         {
             return new Call<TRequestParam, TResponseParam>(url).Invoke;
         }

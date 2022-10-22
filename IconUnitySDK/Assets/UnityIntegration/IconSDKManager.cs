@@ -1,4 +1,4 @@
-using System.Threading.Tasks;
+
 using UnityEngine;
 using IconSDK.RPCs;
 using System.Numerics;
@@ -8,6 +8,7 @@ using IconSDK.Types;
 using NBitcoin;
 using NBitcoin.DataEncoders;
 using Network = NBitcoin.Network;
+using Cysharp.Threading.Tasks;
 
 public class IconSDKManager : MonoBehaviour
 {
@@ -21,21 +22,24 @@ public class IconSDKManager : MonoBehaviour
         Instance = this;
     }
 
-    public async Task<Hash32> GetBlockByHeight(BigInteger height)
+    public async UniTask<Hash32> GetBlockByHeight(BigInteger height)
     {
         var get = new GetBlockByHeight(Consts.ApiUrl.MainNet);
         var result = await get.Invoke(height);
         return result.Hash;
     }
 
-    public async Task<Hash32> GetLastBlockAsync()
+    public async UniTask<Hash32> GetLastBlockAsync()
     {
         var get = new GetLastBlock(Consts.ApiUrl.MainNet);
+        
+
         var result = await get.Invoke();
+       
         return result.Hash;
     }
 
-    public async Task<BigInteger> GetTotalSupplyAsync()
+    public async UniTask<BigInteger> GetTotalSupplyAsync()
     {
         var getTotalSupply = new GetTotalSupply(Consts.ApiUrl.MainNet);
         var totalSupply = await getTotalSupply.Invoke();
@@ -61,7 +65,7 @@ public class IconSDKManager : MonoBehaviour
         return privKey.ToBytes();
     }
 
-    public async Task<double> GetBalanceAsync(string address, NetworkType network)
+    public async UniTask<double> GetBalanceAsync(string address, NetworkType network)
     {
         GetBalance getBalance = new GetBalance(GetApiUri(network));
         BigInteger balance = await getBalance.Invoke(address);

@@ -1,18 +1,24 @@
 using System;
 using System.Net.Http;
+using System.Collections;
+using UnityEngine.Networking;
 using System.Text;
-using System.Threading.Tasks;
+using UnityEngine;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
+using Cysharp.Threading.Tasks;
+using System.Threading.Tasks;
+
 
 namespace IconSDK.RPCs
 {
     using Extensions;
     using Types;
 
-    public class RPC<TRPCRequestMessage, TRPCResponseMessage>
+    public class RPC<TRPCRequestMessage, TRPCResponseMessage> : MonoBehaviour
         where TRPCRequestMessage : RPCRequestMessage
         where TRPCResponseMessage : RPCResponseMessage
+        
     {
         private static JsonSerializerSettings _settings = new JsonSerializerSettings()
         {
@@ -31,7 +37,7 @@ namespace IconSDK.RPCs
             }
         };
 
-        public static Func<TRPCRequestMessage, Task<TRPCResponseMessage>> Create(string url)
+        public static Func<TRPCRequestMessage, UniTask<TRPCResponseMessage>> Create(string url)
         {
             return new RPC<TRPCRequestMessage, TRPCResponseMessage>(url).Invoke;
         }
@@ -43,27 +49,84 @@ namespace IconSDK.RPCs
             URL = url;
         }
 
-        public async Task<TRPCResponseMessage> Invoke(TRPCRequestMessage requestMessage)
+        public async UniTask<TRPCResponseMessage> Invoke(TRPCRequestMessage requestMessage)
         {
-            using (var httpClient = new HttpClient())
-            {
+            
+            
                 string message = JsonConvert.SerializeObject(requestMessage, _settings);
-                using (var result = await httpClient.PostAsync(
-                    URL,
-                    new StringContent(
+                var abc = new StringContent(
                         message,
                         Encoding.UTF8,
                         "application/json"
-                    )
-                ))
+                    );
+                string myContent = await abc.ReadAsStringAsync();
+
+                
+
+            /**  using (var result = await httpClient.PostAsync(
+                  URL,
+                  new StringContent(
+                      message,
+                      Encoding.UTF8,
+                      "application/json"
+                  )**/
+     
+            byte[] bytes = Encoding.UTF8.GetBytes(message);
+          
+           
+            UnityWebRequest request = new UnityWebRequest(URL);
+            request.SetRequestHeader("Content-Type", "application/json");
+            request.method = "POST";
+            request.uploadHandler = new UploadHandlerRaw(bytes);
+            request.downloadHandler = new DownloadHandlerBuffer();
+
+
+            request.SendWebRequest();
+            while (!request.isDone)
                 {
-                    string resultContent = await result.Content.ReadAsStringAsync();
-                    var responseMessage = JsonConvert.DeserializeObject<TRPCResponseMessage>(resultContent, _settings);
-                    if (!responseMessage.IsSuccess)
-                        throw RPCException.Create(responseMessage.Error.Code, responseMessage.Error.Message);
+             
+                    await UniTask.Yield();
+                }
+                if (request.result == UnityWebRequest.Result.ConnectionError)
+                {
+                    throw RPCException.Create(401, request.error);
+                }
+                else
+                {
+              
+                    var responseMessage = JsonConvert.DeserializeObject<TRPCResponseMessage>(request.downloadHandler.text, _settings);
                     return responseMessage;
                 }
+
+           /*     StartCoroutine(postRequest(URL, message, (result) =>
+                  {
+
+                      var responseMessage = JsonConvert.DeserializeObject<TRPCResponseMessage>(result, _settings);
+                      if (!responseMessage.IsSuccess)
+                          throw RPCException.Create(responseMessage.Error.Code, responseMessage.Error.Message);
+                      //return responseMessage;
+                  }
+            ));*/
+                   
+
+            
+        }
+
+        IEnumerator postRequest(string url, string message, Action<string> result)
+        { 
+
+            UnityWebRequest request = UnityWebRequest.Post(URL, message);
+            request.SetRequestHeader("Content-Type", "application/json");
+            yield return request.SendWebRequest();
+
+            if(request.result == UnityWebRequest.Result.ConnectionError){
+               
+                result(request.error);
             }
+            else{
+                result(request.downloadHandler.text);
+             }
+
         }
     }
 }

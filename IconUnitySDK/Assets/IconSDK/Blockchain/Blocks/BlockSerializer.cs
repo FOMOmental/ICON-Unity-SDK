@@ -20,15 +20,21 @@ namespace IconSDK.Blockchain
             BigInteger height = (long)blockSerialized["height"];
             BigInteger timestamp = (long)blockSerialized["time_stamp"];
             ExternalAddress peerID = (string)blockSerialized["peer_id"];
-            Signature signature = (string)blockSerialized["signature"];
-
+            
             TransactionSerializer ts = new TransactionSerializer();
+            ((JArray)blockSerialized["confirmed_transaction_list"]).RemoveAt(0);
             ImmutableArray<Transaction> transactions =
             ((JArray)blockSerialized["confirmed_transaction_list"]).Select(txSerialized =>
             {
-                return ts.Deserialize(txSerialized.ToObject<Dictionary<string, object>>());
-            }).ToImmutableArray();
-
+                 
+                    System.Console.WriteLine("hello");
+                    return ts.Deserialize(txSerialized.ToObject<Dictionary<string, object>>());
+                
+                
+                    
+}
+            ).ToImmutableArray();
+            
             return new Block(
                 version,
                 hash,
@@ -37,7 +43,7 @@ namespace IconSDK.Blockchain
                 height,
                 timestamp,
                 peerID,
-                signature,
+              
                 transactions
             );
         }

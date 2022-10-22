@@ -1,9 +1,9 @@
 using System;
 using System.Collections.Generic;
-using System.Threading.Tasks;
 using System.Globalization;
 using System.Numerics;
 using Newtonsoft.Json;
+using Cysharp.Threading.Tasks;
 
 namespace IconSDK.RPCs
 {
@@ -32,14 +32,14 @@ namespace IconSDK.RPCs
 
         }
 
-        public async Task<BigInteger> Invoke()
+        public async UniTask<BigInteger> Invoke()
         {
             var request = new GetTotalSupplyRequestMessage();
             var response = await Invoke(request);
             return response.Result;
         }
 
-        public static new Func<Task<BigInteger>> Create(string url)
+        public static new Func<UniTask<BigInteger>> Create(string url)
         {
             return new GetTotalSupply(url).Invoke;
         }

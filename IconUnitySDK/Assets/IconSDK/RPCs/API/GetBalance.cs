@@ -45,6 +45,7 @@ namespace IconSDK.RPCs
         {
             var request = new GetBalanceRequestMessage(address);
             var response = await Invoke(request);
+        
             return response.Result.ToBigInteger();
         }
 
