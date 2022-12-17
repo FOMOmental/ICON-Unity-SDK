@@ -44,7 +44,7 @@ Now you will be able to directly integrate and call smartcontract and send trans
 ### C# Methods you can use in unity
 
 
-*Send ICX To Address:*
+**Send ICX To Address:**
 
 
 IconSDK.BridgeCore.sendTransaction(string to, string value, string stepLimit, string nid, string nonce,string  gameObject, string callBackMethod)
@@ -52,6 +52,9 @@ IconSDK.BridgeCore.sendTransaction(string to, string value, string stepLimit, st
 
 gameObject: "Unity game object name"
 callBackMethod: "Callback method name in game"
+
+
+
 
 
 **Call SCORE View-Only method**
@@ -76,54 +79,13 @@ IconSDK.BridgeCore.sendCallTransaction(string to, string method, string params_,
 
 gameObject: "Unity game object name"
 callBackMethod: "Callback method name in game"
-For other parameters check here<https://github.com/icon-project/icon-sdk-js#iconserviceiconbuildercalltransactionbuilder>
+For other parameters check here<https://github.com/icon-project/icon-sdk-js#iconserviceiconbuildercalltransactionbuilder>a
 
-# Browser Integration
+**Callback method**
 
-Now you will be able to directly integrate and call smartcontract and send transactions via the browser. This was much needed as most of the webgames would require this. 
+You can use this function definition for the callback method, you will receive the result of success or failure in the callback method
 
-
-*Send ICX To Address:*
-
-
-sendTransaction(string to, string value, string stepLimit, string nid, string nonce,string  gameObject, string callBackMethod)
-
-
-gameObject: "Unity game object name"
-callBackMethod: "Callback method name in game"
-
-Read more about here : https://github.com/icon-project/icon-sdk-js#iconserviceiconbuildericxtransactionbuilder
-
-**Call SCORE View-Only method**
-
-This method can be used to call view-only methods on the icon contracts
-
-IconSDK.BridgeCore.sendCall(string to, string method,string params_,string gameObject,string callBackMethod)
-
-gameObject: "Unity game object name"
-callBackMethod: "Callback method name in game"
-
-
-For other parameters check here 
-https://github.com/icon-project/icon-sdk-js#iconserviceiconbuildercallbuilder
-
-
-
-
-
-**Call SCORE method:**
-
-
-This method is used to call transaction method on the smart-contract.
-
-IconSDK.BridgeCore.sendCallTransaction(string to, string method, string params_, string value,string stepLimit,string nid,string nonce,string gameObject,string callBackMethod)
-
-gameObject: "Unity game object name"
-callBackMethod: "Callback method name in game"
-
-
-For other parameters check here:
-https://github.com/icon-project/icon-sdk-js#iconserviceiconbuildercalltransactionbuilder
+public void callBackMethod(string resultJsonObject);
 
 
 
