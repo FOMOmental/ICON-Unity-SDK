@@ -36,13 +36,18 @@ As the base ICONSDK supports all the view calls there is no need to bridge the t
 
 # Browser Integration
 
+
+
+
 Now you will be able to directly integrate and call smartcontract and send transactions via the browser. This was much needed as most of the webgames would require this. 
+
+### C# Methods you can use in unity
 
 
 *Send ICX To Address:*
 
 
-sendTransaction(string to, string value, string stepLimit, string nid, string nonce,string  gameObject, string callBackMethod)
+IconSDK.BridgeCore.sendTransaction(string to, string value, string stepLimit, string nid, string nonce,string  gameObject, string callBackMethod)
 
 
 gameObject: "Unity game object name"
